@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Night.Market Giveaway Participation Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('background.jpg') no-repeat center center/cover;
+            color: white;
+        }
+        .container {
+            background: rgba(40, 42, 54, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: #44475a;
+            color: white;
+            font-size: 16px;
+        }
+        button {
+            background: #ff5555;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #ff2a2a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Giveaway Participation Form</h2>
+        <form id="form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="text" name="discord" placeholder="Your Discord Username" required>
+            <input type="text" name="valorant" placeholder="Your Valorant IGN#TAG" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = Object.fromEntries(new FormData(event.target).entries());
+
+            const response = await fetch('/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                window.location.href = "/thank_you.html";
+            } else {
+                alert("Error submitting form. Please try again.");
+            }
+        });
+    </script>
+</body>
+</html>
